@@ -1,66 +1,124 @@
-'use client'; // 1. Bắt buộc có dòng này để dùng useUser
+ 'use client'; // Bắt buộc vì dùng useState và useRouter
 
 import Link from "next/link";
 import { UserButton, SignedIn, SignedOut, SignInButton, useUser } from "@clerk/nextjs";
-import { Search, LayoutDashboard } from "lucide-react"; // Import thêm icon Dashboard cho đẹp
+import { Search, LayoutDashboard, ShieldCheck, Menu, X } from "lucide-react"; 
+import { usePathname, useRouter } from "next/navigation"; 
+import { useState } from "react";
 
 export default function Navbar() {
-  // 2. Lấy thông tin user hiện tại
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
+  const pathname = usePathname();
+  const router = useRouter();
+  
+  // State cho tìm kiếm
+  const [keyword, setKeyword] = useState("");
+
+  // Hàm xử lý khi bấm Enter trong ô tìm kiếm
+  const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && keyword.trim() !== "") {
+      // Chuyển hướng sang trang tìm kiếm
+      router.push(`/search?q=${encodeURIComponent(keyword)}`);
+    }
+  };
+
+  // Danh sách menu
+  const navLinks = [
+    { name: "Trang chủ", href: "/" },
+    { name: "Bài viết", href: "/blog" },
+    { name: "Sự kiện", href: "/events" },
+    { name: "Liên hệ", href: "/contact" },
+  ];
 
   return (
-    <nav className="flex items-center justify-between px-8 py-4 bg-white shadow-sm sticky top-0 z-50">
-      {/* 1. Logo */}
-      <Link href="/" className="text-2xl font-bold font-sans">
-        Bloggy
-      </Link>
+    <nav className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-sm transition-all">
+      <div className="container mx-auto px-4 md:px-8 h-16 flex items-center justify-between">
+        
+        {/* 1. LOGO */}
+        <Link href="/" className="flex items-center gap-2 group">
+          <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center text-white font-serif italic group-hover:bg-gray-800 transition shadow-md">
+            B
+          </div>
+          <span className="text-xl font-bold font-sans tracking-tight text-gray-900">BlogVLU</span>
+        </Link>
 
-      {/* 2. Menu Links */}
-      <div className="hidden md:flex gap-8 font-medium text-gray-600">
-        <Link href="/" className="hover:text-black transition">Home</Link>
-        <Link href="/members" className="hover:text-black transition">Members</Link>
-        <Link href="/blog" className="hover:text-black transition">Blog</Link>
-        <Link href="/events" className="hover:text-black transition">Events</Link>
-        <Link href="/contact" className="hover:text-black transition">Contact</Link>
-      </div>
-
-      {/* 3. Search & User Action */}
-      <div className="flex items-center gap-4">
-        {/* Thanh tìm kiếm */}
-        <div className="hidden md:flex items-center bg-gray-100 px-3 py-2 rounded-full">
-          <Search size={18} className="text-gray-400" />
-          <input 
-            type="text" 
-            placeholder="Search..." 
-            className="bg-transparent border-none outline-none text-sm ml-2 w-24"
-          />
+        {/* 2. MENU CHÍNH (Ẩn trên Mobile) */}
+        <div className="hidden md:flex gap-8 font-medium text-sm text-gray-600">
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
+            return (
+              <Link 
+                key={link.href} 
+                href={link.href}
+                className={`relative transition-colors hover:text-black py-1 ${
+                  isActive ? "text-black font-bold" : ""
+                }`}
+              >
+                {link.name}
+                {/* Dấu gạch chân khi Active */}
+                {isActive && (
+                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-black rounded-full"></span>
+                )}
+              </Link>
+            );
+          })}
         </div>
 
-        {/* Khu vực User */}
-        <div className="flex items-center gap-3">
-          <SignedOut>
-            <SignInButton mode="modal">
-               <button className="p-2 bg-gray-100 rounded-full hover:bg-gray-200 transition">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-               </button>
-            </SignInButton>
-          </SignedOut>
+        {/* 3. KHU VỰC TÌM KIẾM & USER */}
+        <div className="flex items-center gap-3 sm:gap-4">
           
-          <SignedIn>
-            {/* 3. Logic hiển thị nút Admin */}
-            {user?.publicMetadata?.role === 'admin' && (
-              <Link 
-                href="/admin" 
-                className="hidden md:flex items-center gap-2 bg-black text-white px-3 py-2 rounded-full text-sm font-medium hover:bg-gray-800 transition mr-2"
-              >
-                <LayoutDashboard size={16} />
-                <span>Quản lý</span>
-              </Link>
-            )}
+          {/* Ô TÌM KIẾM (Hoạt động) */}
+          <div className="hidden lg:flex items-center bg-gray-100 px-3 py-1.5 rounded-full border border-transparent focus-within:border-gray-300 focus-within:bg-white focus-within:shadow-sm transition-all group">
+            <Search size={16} className="text-gray-400 group-focus-within:text-gray-600" />
+            <input 
+              type="text" 
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+              onKeyDown={handleSearch}
+              placeholder="Tìm kiếm..." 
+              className="bg-transparent border-none outline-none text-sm ml-2 w-24 focus:w-40 transition-all duration-300 placeholder:text-gray-400 text-gray-700"
+            />
+          </div>
 
-            {/* Avatar User */}
-            <UserButton />
-          </SignedIn>
+          {/* User Actions */}
+          <div className="flex items-center gap-3">
+            <SignedOut>
+              <SignInButton mode="modal">
+                 <button className="text-sm font-bold bg-black text-white px-5 py-2 rounded-full hover:bg-gray-800 hover:scale-105 transition active:scale-95 shadow-lg shadow-gray-200">
+                    Đăng nhập
+                 </button>
+              </SignInButton>
+            </SignedOut>
+            
+            <SignedIn>
+              {/* Nút Admin (Chỉ hiện nếu có quyền) */}
+              {isLoaded && user?.publicMetadata?.role === 'admin' && (
+                <Link 
+                  href="/admin/posts" 
+                  className="hidden md:flex items-center gap-1.5 bg-gray-50 text-gray-700 px-3 py-1.5 rounded-full text-xs font-bold border border-gray-200 hover:bg-black hover:text-white hover:border-black transition"
+                  title="Trang quản trị viên"
+                >
+                  <ShieldCheck size={14} />
+                  <span>Quản trị</span>
+                </Link>
+              )}
+
+              {/* Avatar Clerk */}
+              <UserButton 
+                afterSignOutUrl="/"
+                appearance={{
+                  elements: {
+                    avatarBox: "w-9 h-9 border-2 border-gray-100 hover:border-gray-300 transition"
+                  }
+                }}
+              />
+            </SignedIn>
+
+            {/* Mobile Menu Icon (Chỉ hiện trên Mobile) */}
+            <button className="md:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition">
+                <Menu size={24} />
+            </button>
+          </div>
         </div>
       </div>
     </nav>

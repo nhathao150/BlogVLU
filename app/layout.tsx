@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs"; // <--- Import cái này
+import { Toaster } from 'sonner';
+import Footer from "@/components/Footer";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,14 +15,25 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    // Bọc ClerkProvider ở ngoài cùng
     <ClerkProvider>
-      <html lang="en">
-        <body className={inter.className}>{children}</body>
+      <html lang="vi">
+        <body className={inter.className}>
+          
+          {/* Nội dung chính của web */}
+          <div className="flex flex-col min-h-screen">
+             {children}
+          </div>
+
+          <Toaster position="bottom-right" richColors />
+          
+          {/* 2. Đặt Footer ở cuối cùng */}
+          <Footer />
+          
+        </body>
       </html>
     </ClerkProvider>
   );

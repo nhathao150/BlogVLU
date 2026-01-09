@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, FileText, Calendar, Users, Settings, LogOut } from "lucide-react";
+import { LayoutDashboard, FileText, Calendar, Users, Settings, LogOut, Mail } from "lucide-react";
 import { SignOutButton } from "@clerk/nextjs";
 
 const menuItems = [
@@ -28,6 +28,11 @@ const menuItems = [
     href: "/admin/events", 
     icon: Calendar 
   },
+  { 
+  name: "Hộp thư", 
+  href: "/admin/contacts", 
+  icon: Mail // Import icon Mail từ lucide-react
+},
 ];
 
 export default function AdminSidebar() {
