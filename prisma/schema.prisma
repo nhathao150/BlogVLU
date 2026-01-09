@@ -1,0 +1,38 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// CHÚ Ý: Trong block datasource này KHÔNG ĐƯỢC CÓ dòng url và directUrl nữa
+datasource db {
+  provider = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// Bảng Người dùng (User)
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  image     String?
+  posts     Post[]
+  createdAt DateTime @default(now())
+}
+
+// Bảng Bài viết (Post)
+model Post {
+  id        String   @id @default(cuid())
+  title     String
+  slug      String   @unique
+  content   String?
+  published Boolean  @default(false)
+  image     String?
+  
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id])
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
