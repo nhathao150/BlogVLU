@@ -8,9 +8,7 @@ export default function ShareButtons({ title }: { title: string }) {
   const [url, setUrl] = useState("");
 
   // Lấy URL hiện tại khi component vừa load xong
-  useEffect(() => {
-    setUrl(window.location.href);
-  }, []);
+  
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(url);
