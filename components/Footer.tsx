@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from "lucide-react";
+import Image from "next/image";
+
 
 export default function Footer() {
   return (
@@ -10,9 +12,13 @@ export default function Footer() {
           {/* Cột 1: Giới thiệu */}
           <div className="col-span-1 md:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-4 group">
-                <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center text-black font-serif italic font-bold">
-                    B
-                </div>
+              <Image
+                    src="/logo.png"
+                    alt="BlogVLU Logo"
+                    width={32}
+                    height={32}
+                    className="rounded-lg shadow-sm object-cover"
+                  />
                 <span className="text-xl font-bold text-white tracking-tight">BlogVLU</span>
             </Link>
             <p className="text-sm leading-relaxed text-gray-400 max-w-sm">

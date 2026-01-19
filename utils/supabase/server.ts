@@ -6,7 +6,6 @@ export const createClient = async () => {
   const { getToken } = await auth();
   
   // 2. Lấy Token đặc biệt để gửi sang Supabase
-  // (Lưu ý: Nếu bạn chưa setup JWT Template bên Clerk thì dòng này trả về null, vẫn chạy được nhưng là quyền khách)
   const token = await getToken({ template: 'supabase' });
 
   // 3. Khởi tạo Supabase Client

@@ -20,6 +20,7 @@ export default function BlogActions({ postId }: { postId: number }) {
 
   // 1. Khởi tạo dữ liệu (URL, Title, Like Status)
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setUrl(window.location.href)
     setTitle(document.title)
 

@@ -1,5 +1,5 @@
- 'use client'; // Bắt buộc vì dùng useState và useRouter
-
+ 'use client';
+import Image from "next/image";
 import Link from "next/link";
 import { UserButton, SignedIn, SignedOut, SignInButton, useUser } from "@clerk/nextjs";
 import { Search, LayoutDashboard, ShieldCheck, Menu, X } from "lucide-react"; 
@@ -36,9 +36,13 @@ export default function Navbar() {
         
         {/* 1. LOGO */}
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center text-white font-serif italic group-hover:bg-gray-800 transition shadow-md">
-            B
-          </div>
+            <Image
+              src="/logo.png" 
+              alt="BlogVLU Logo"
+              width={30}  
+              height={30} 
+              className="rounded-lg shadow-md object-cover group-hover:opacity-80 transition"
+            />
           <span className="text-xl font-bold font-sans tracking-tight text-gray-900">BlogVLU</span>
         </Link>
 
