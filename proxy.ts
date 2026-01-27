@@ -1,28 +1,29 @@
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
-import { NextResponse } from 'next/server'
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-// Định nghĩa các route cần bảo vệ (bắt đầu bằng /admin)
-const isAdminRoute = createRouteMatcher(['/admin(.*)'])
+// 1. Định nghĩa các trang CÔNG KHAI (Ai cũng vào được)
+const isPublicRoute = createRouteMatcher([
+  '/',                // Trang chủ
+  '/blog(.*)',        // Các bài viết blog
+  '/events(.*)',      // Các trang sự kiện
+  '/about',           // Trang giới thiệu
+  '/contact',         // Trang liên hệ
+  '/search(.*)',      // Trang tìm kiếm
+  '/sign-in(.*)',     // Trang đăng nhập
+  '/sign-up(.*)'      // Trang đăng ký
+]);
 
-export default clerkMiddleware(async (auth, req) => {
-  // Nếu user truy cập vào route admin
-  if (isAdminRoute(req)) {
-    const { sessionClaims } = await auth()
-    
-    // Đọc metadata từ session (đã config ở Giai đoạn 1)
-    const role = sessionClaims?.metadata?.role
-
-    // Nếu không phải admin -> Đá về trang chủ
-    if (role !== 'admin') {
-      const homeUrl = new URL('/', req.url)
-      return NextResponse.redirect(homeUrl)
-    }
+export default clerkMiddleware(async(auth, req) => {
+  // 2. Nếu KHÔNG phải trang công khai thì mới bắt đăng nhập (Protect)
+  if (!isPublicRoute(req)) {
+    await auth.protect();
   }
-})
+});
 
 export const config = {
   matcher: [
+    // Chạy middleware trên tất cả các route, trừ file tĩnh (_next/static, file ảnh...)
     '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+    // Luôn chạy cho API route
     '/(api|trpc)(.*)',
   ],
-}
+};
