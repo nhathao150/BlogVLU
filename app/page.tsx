@@ -33,11 +33,6 @@ export default function Home() {
                   Xem Blog
                 </button>
               </Link>
-              <Link href="/about">
-                <button className="bg-white text-gray-800 border border-gray-300 px-8 py-3 rounded-lg font-bold shadow-sm hover:bg-gray-100 transition">
-                  Giới thiệu nhóm
-                </button>
-              </Link>
             </div>
           </div>
 

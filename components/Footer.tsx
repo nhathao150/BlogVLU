@@ -33,7 +33,6 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li><Link href="/blog" className="hover:text-white transition">Bài viết mới</Link></li>
               <li><Link href="/events" className="hover:text-white transition">Sự kiện sắp tới</Link></li>
-              <li><Link href="/about" className="hover:text-white transition">Về chúng tôi</Link></li>
               <li><Link href="/contact" className="hover:text-white transition">Liên hệ & Góp ý</Link></li>
             </ul>
           </div>

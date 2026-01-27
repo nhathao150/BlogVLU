@@ -5,7 +5,6 @@ const isPublicRoute = createRouteMatcher([
   '/',                // Trang chủ
   '/blog(.*)',        // Các bài viết blog
   '/events(.*)',      // Các trang sự kiện
-  '/about',           // Trang giới thiệu
   '/contact',         // Trang liên hệ
   '/search(.*)',      // Trang tìm kiếm
   '/sign-in(.*)',     // Trang đăng nhập
