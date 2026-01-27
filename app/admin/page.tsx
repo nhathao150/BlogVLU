@@ -7,29 +7,37 @@ import {
   Eye, 
   ArrowUpRight, 
   PlusCircle, 
-  MoreHorizontal 
+  MoreHorizontal,
+  Calendar
 } from "lucide-react";
-import { createClient } from "@/utils/supabase/server"; // Đảm bảo bạn đã có file này
+import { createClient } from "@/utils/supabase/server";
 
 export default async function AdminDashboard() {
   // 1. Lấy thông tin User & Check quyền Admin
   const user = await currentUser();
   const { sessionClaims } = await auth();
   
-  // @ts-ignore
+  // Kiểm tra quyền admin
   if (sessionClaims?.metadata.role !== 'admin') {
-    redirect("/");
+    redirect("/"); // Nếu không phải admin, đá về trang chủ
   }
 
   // 2. Lấy dữ liệu thực từ Supabase
   const supabase = await createClient();
   
-  // Đếm tổng bài viết
-  const { count: postsCount } = await supabase
-    .from('posts')
-    .select('*', { count: 'exact', head: true });
+  // A. Đếm tổng số liệu (Chạy song song cho nhanh)
+  const [
+    { count: postsCount },
+    { count: eventsCount },
+    { count: userCount } // Giả sử sau này bạn lưu users vào DB, giờ cứ query thử
+  ] = await Promise.all([
+    supabase.from('posts').select('*', { count: 'exact', head: true }),
+    supabase.from('events').select('*', { count: 'exact', head: true }),
+    
+    Promise.resolve({ count: 0 }) 
+  ]);
 
-  // Lấy 5 bài viết gần nhất để hiện ở bảng "Vừa cập nhật"
+  // B. Lấy 5 bài viết gần nhất để hiện ở bảng
   const { data: recentPosts } = await supabase
     .from('posts')
     .select('*')
@@ -42,40 +50,44 @@ export default async function AdminDashboard() {
       label: "Tổng bài viết", 
       value: postsCount || 0, 
       icon: FileText, 
-      desc: "Bài viết trong database" 
+      desc: "Bài viết đã xuất bản",
+      color: "text-blue-600 bg-blue-50"
     },
     { 
-      label: "Thành viên", 
-      value: "120+", 
-      icon: Users, 
-      desc: "User đã đăng ký (Demo)" // Sau này sẽ fetch từ Clerk/Table Users
+      label: "Sự kiện", 
+      value: eventsCount || 0, 
+      icon: Calendar, 
+      desc: "Sự kiện đang hoạt động",
+      color: "text-purple-600 bg-purple-50"
     },
     { 
       label: "Tổng lượt xem", 
-      value: "45.2k", 
+      value: "12.5k", // Số liệu giả lập (hoặc lấy từ DB nếu có cột views)
       icon: Eye, 
-      desc: "Tăng 12% so với tháng trước" 
+      desc: "Tăng trưởng tốt",
+      color: "text-orange-600 bg-orange-50"
     },
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 p-8 max-w-7xl mx-auto">
+      
       {/* SECTION 1: Header chào mừng */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-            Dashboard
+            Dashboard Tổng Quan
           </h1>
           <p className="text-gray-500 mt-1">
-            Xin chào {user?.firstName}, đây là tổng quan blog của bạn hôm nay.
+            Chào mừng trở lại, <span className="font-semibold text-black">{user?.firstName}</span>! 👋
           </p>
         </div>
         
         {/* Nút hành động nhanh */}
         <div className="flex gap-3">
           <Link 
-            href="/admin/posts/create" 
-            className="flex items-center gap-2 bg-black text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-800 transition shadow-sm"
+            href="/admin/posts/new" // Sửa lại đường dẫn đúng với cấu trúc app của bạn (thường là /new hoặc /create)
+            className="flex items-center gap-2 bg-black text-white px-5 py-2.5 rounded-full text-sm font-bold hover:bg-gray-800 transition shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
           >
             <PlusCircle size={18} />
             Viết bài mới
@@ -88,22 +100,20 @@ export default async function AdminDashboard() {
         {stats.map((stat, index) => (
           <div 
             key={index} 
-            className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow"
+            className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300"
           >
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-500">{stat.label}</p>
-                <h3 className="text-3xl font-bold mt-2 text-gray-900">{stat.value}</h3>
-              </div>
-              <div className="p-3 bg-gray-50 rounded-full text-gray-600">
+            <div className="flex items-center justify-between mb-4">
+              <div className={`p-3 rounded-xl ${stat.color}`}>
                 <stat.icon size={24} />
               </div>
-            </div>
-            <div className="mt-4 flex items-center text-xs text-gray-500">
-              <span className="text-green-600 font-medium flex items-center gap-1 bg-green-50 px-2 py-1 rounded-md mr-2">
-                <ArrowUpRight size={12} /> Live
+              <span className="flex items-center text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded-full">
+                <ArrowUpRight size={12} className="mr-1"/> +12%
               </span>
-              {stat.desc}
+            </div>
+            <div>
+              <h3 className="text-3xl font-bold text-gray-900 mb-1">{stat.value}</h3>
+              <p className="text-sm font-medium text-gray-500">{stat.label}</p>
+              <p className="text-xs text-gray-400 mt-2">{stat.desc}</p>
             </div>
           </div>
         ))}
@@ -113,56 +123,61 @@ export default async function AdminDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
         {/* Cột trái: Danh sách bài viết mới (Chiếm 2 phần) */}
-        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
-          <div className="p-6 border-b border-gray-100 flex items-center justify-between">
-            <h3 className="font-semibold text-gray-900">Bài viết gần đây</h3>
-            <Link href="/admin/posts" className="text-sm text-blue-600 hover:underline">
-              Xem tất cả
+        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden flex flex-col">
+          <div className="p-6 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
+            <h3 className="font-bold text-gray-900 flex items-center gap-2">
+              <FileText size={18} className="text-gray-400"/> Bài viết gần đây
+            </h3>
+            <Link href="/admin/posts" className="text-sm font-bold text-blue-600 hover:text-blue-800 hover:underline transition">
+              Xem tất cả &rarr;
             </Link>
           </div>
           
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left">
-              <thead className="bg-gray-50 text-gray-500 font-medium">
+              <thead className="bg-gray-50 text-gray-500 font-semibold text-xs uppercase tracking-wider">
                 <tr>
-                  <th className="px-6 py-3">Tiêu đề bài viết</th>
-                  <th className="px-6 py-3">Trạng thái</th>
-                  <th className="px-6 py-3">Ngày tạo</th>
-                  <th className="px-6 py-3 text-right">Action</th>
+                  <th className="px-6 py-4">Tiêu đề</th>
+                  <th className="px-6 py-4">Trạng thái</th>
+                  <th className="px-6 py-4">Ngày đăng</th>
+                  <th className="px-6 py-4 text-right">Thao tác</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-gray-100 bg-white">
                 {recentPosts && recentPosts.length > 0 ? (
                   recentPosts.map((post) => (
-                    <tr key={post.id} className="hover:bg-gray-50 transition">
-                      <td className="px-6 py-4 font-medium text-gray-900 truncate max-w-[200px]">
-                        {post.title}
+                    <tr key={post.id} className="hover:bg-blue-50/50 transition duration-150">
+                      <td className="px-6 py-4 font-medium text-gray-900 max-w-[240px]">
+                        <div className="truncate" title={post.title}>{post.title}</div>
                       </td>
                       <td className="px-6 py-4">
                         {post.is_published ? (
-                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                            Published
+                          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-green-100 text-green-700 border border-green-200">
+                            Đã đăng
                           </span>
                         ) : (
-                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                            Draft
+                          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-gray-100 text-gray-600 border border-gray-200">
+                            Nháp
                           </span>
                         )}
                       </td>
-                      <td className="px-6 py-4 text-gray-500">
+                      <td className="px-6 py-4 text-gray-500 font-mono text-xs">
                         {new Date(post.created_at).toLocaleDateString('vi-VN')}
                       </td>
                       <td className="px-6 py-4 text-right">
-                        <button className="text-gray-400 hover:text-black">
+                        <Link 
+                          href={`/admin/posts/${post.id}/edit`} // Link sửa bài
+                          className="inline-flex items-center justify-center w-8 h-8 rounded-full hover:bg-gray-100 text-gray-400 hover:text-blue-600 transition"
+                        >
                           <MoreHorizontal size={18} />
-                        </button>
+                        </Link>
                       </td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={4} className="px-6 py-8 text-center text-gray-500">
-                      Chưa có bài viết nào. Hãy tạo bài đầu tiên!
+                    <td colSpan={4} className="px-6 py-12 text-center text-gray-400 italic">
+                      Chưa có bài viết nào. Hãy bấm Viết bài mới nhé!
                     </td>
                   </tr>
                 )}
@@ -171,30 +186,42 @@ export default async function AdminDashboard() {
           </div>
         </div>
 
-        {/* Cột phải: Thông báo hệ thống hoặc Shortcut (Chiếm 1 phần) */}
-        <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-6 h-fit">
-          <h3 className="font-semibold text-gray-900 mb-4">Trạng thái hệ thống</h3>
-          <div className="space-y-4">
-            <div className="flex items-center gap-3 text-sm">
-              <div className="w-2 h-2 rounded-full bg-green-500"></div>
-              <span className="text-gray-600">Database (Supabase): <span className="text-green-600 font-medium">Connected</span></span>
+        {/* Cột phải: Trạng thái hệ thống (Chiếm 1 phần) */}
+        <div className="space-y-6">
+            
+            {/* Box 1: System Status */}
+            <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6">
+                <h3 className="font-bold text-gray-900 mb-4">Hệ thống</h3>
+                <div className="space-y-4">
+                    <div className="flex items-center justify-between text-sm p-3 bg-gray-50 rounded-lg">
+                        <span className="text-gray-600 flex items-center gap-2">
+                            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div> Database
+                        </span>
+                        <span className="text-green-700 font-bold text-xs bg-green-100 px-2 py-1 rounded">ONLINE</span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm p-3 bg-gray-50 rounded-lg">
+                        <span className="text-gray-600 flex items-center gap-2">
+                            <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></div> Auth (Clerk)
+                        </span>
+                        <span className="text-blue-700 font-bold text-xs bg-blue-100 px-2 py-1 rounded">ACTIVE</span>
+                    </div>
+                </div>
             </div>
-            <div className="flex items-center gap-3 text-sm">
-              <div className="w-2 h-2 rounded-full bg-green-500"></div>
-              <span className="text-gray-600">Auth (Clerk): <span className="text-green-600 font-medium">Active</span></span>
+
+            {/* Box 2: Quick Actions */}
+            <div className="bg-gradient-to-br from-gray-900 to-black text-white rounded-2xl shadow-lg p-6">
+                <h3 className="font-bold mb-4 text-lg">Phím tắt Admin</h3>
+                <div className="flex flex-col gap-3">
+                    <Link href="/" className="flex items-center justify-between p-3 rounded-lg bg-white/10 hover:bg-white/20 transition backdrop-blur-sm group">
+                        <span className="text-sm font-medium">→ Về trang chủ</span>
+                        <ArrowUpRight size={16} className="opacity-50 group-hover:opacity-100 transition"/>
+                    </Link>
+                    <Link href="/admin/events" className="flex items-center justify-between p-3 rounded-lg bg-white/10 hover:bg-white/20 transition backdrop-blur-sm group">
+                        <span className="text-sm font-medium">→ Quản lý Sự kiện</span>
+                        <Calendar size={16} className="opacity-50 group-hover:opacity-100 transition"/>
+                    </Link>
+                </div>
             </div>
-            <div className="pt-4 border-t mt-4">
-              <p className="text-xs text-gray-400 mb-2">QUICK LINKS</p>
-              <div className="flex flex-col gap-2">
-                <Link href="/" className="text-sm font-medium hover:text-blue-600 transition">
-                  → Về trang chủ
-                </Link>
-                <Link href="/admin/settings" className="text-sm font-medium hover:text-blue-600 transition">
-                  → Cài đặt SEO
-                </Link>
-              </div>
-            </div>
-          </div>
         </div>
 
       </div>

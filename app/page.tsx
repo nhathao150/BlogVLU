@@ -18,7 +18,7 @@ export default function Home() {
               Nhóm Sinh Viên – <br />
               Trường Đại học Văn Lang
             </h1>
-            <p className="text-red-500 font-bold tracking-wider text-sm uppercase">
+            <p className="text-red-600 font-bold tracking-wider text-sm uppercase">
               Năng động - Sáng tạo - Trách nhiệm
             </p>
             <p className="text-gray-600 text-lg leading-relaxed">

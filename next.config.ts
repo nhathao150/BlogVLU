@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'kknheibcineqbugwkrae.supabase.co', // Đây là địa chỉ server Supabase của bạn
+        hostname: 'kknheibcineqbugwkrae.supabase.co', 
       },
       {
         protocol: 'https',

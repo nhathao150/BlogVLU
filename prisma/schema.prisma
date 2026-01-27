@@ -4,11 +4,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// CHÚ Ý: Trong block datasource này KHÔNG ĐƯỢC CÓ dòng url và directUrl nữa
+
 datasource db {
   provider = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  
 }
 
 // Bảng Người dùng (User)

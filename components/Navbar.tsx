@@ -1,8 +1,9 @@
- 'use client';
+'use client';
+
 import Image from "next/image";
 import Link from "next/link";
 import { UserButton, SignedIn, SignedOut, SignInButton, useUser } from "@clerk/nextjs";
-import { Search, LayoutDashboard, ShieldCheck, Menu, X } from "lucide-react"; 
+import { Search, ShieldCheck, Menu } from "lucide-react"; 
 import { usePathname, useRouter } from "next/navigation"; 
 import { useState } from "react";
 
@@ -17,7 +18,6 @@ export default function Navbar() {
   // Hàm xử lý khi bấm Enter trong ô tìm kiếm
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && keyword.trim() !== "") {
-      // Chuyển hướng sang trang tìm kiếm
       router.push(`/search?q=${encodeURIComponent(keyword)}`);
     }
   };
@@ -59,7 +59,6 @@ export default function Navbar() {
                 }`}
               >
                 {link.name}
-                {/* Dấu gạch chân khi Active */}
                 {isActive && (
                     <span className="absolute bottom-0 left-0 w-full h-0.5 bg-black rounded-full"></span>
                 )}
@@ -71,7 +70,7 @@ export default function Navbar() {
         {/* 3. KHU VỰC TÌM KIẾM & USER */}
         <div className="flex items-center gap-3 sm:gap-4">
           
-          {/* Ô TÌM KIẾM (Hoạt động) */}
+          {/* Ô TÌM KIẾM */}
           <div className="hidden lg:flex items-center bg-gray-100 px-3 py-1.5 rounded-full border border-transparent focus-within:border-gray-300 focus-within:bg-white focus-within:shadow-sm transition-all group">
             <Search size={16} className="text-gray-400 group-focus-within:text-gray-600" />
             <input 
@@ -95,10 +94,10 @@ export default function Navbar() {
             </SignedOut>
             
             <SignedIn>
-              {/* Nút Admin (Chỉ hiện nếu có quyền) */}
+              {/* Nút Admin (Đã sửa link về /admin) */}
               {isLoaded && user?.publicMetadata?.role === 'admin' && (
                 <Link 
-                  href="/admin/posts" 
+                  href="/admin"  
                   className="hidden md:flex items-center gap-1.5 bg-gray-50 text-gray-700 px-3 py-1.5 rounded-full text-xs font-bold border border-gray-200 hover:bg-black hover:text-white hover:border-black transition"
                   title="Trang quản trị viên"
                 >
@@ -118,7 +117,7 @@ export default function Navbar() {
               />
             </SignedIn>
 
-            {/* Mobile Menu Icon (Chỉ hiện trên Mobile) */}
+            {/* Mobile Menu Icon */}
             <button className="md:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition">
                 <Menu size={24} />
             </button>

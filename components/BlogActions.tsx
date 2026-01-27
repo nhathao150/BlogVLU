@@ -107,6 +107,7 @@ export default function BlogActions({ postId }: { postId: number }) {
        {/* Nút Like (Đã hoạt động) */}
        <button 
           onClick={handleLike}
+          aria-label={liked ? "Bỏ thích bài viết" : "Thích bài viết"}
           className={`group p-3 rounded-full bg-white border shadow-sm transition relative ${
             liked ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-red-500 hover:shadow-md'
           }`}
@@ -127,6 +128,7 @@ export default function BlogActions({ postId }: { postId: number }) {
        {/* Nút Comment */}
        <button 
           onClick={scrollToComments}
+          aria-label={Comment ? "Bình luận bài viết" : "Xem bình luận bài viết"}
           className="group p-3 rounded-full bg-white border border-gray-200 shadow-sm hover:border-blue-500 hover:shadow-md transition relative"
           title="Bình luận"
        >
@@ -141,6 +143,7 @@ export default function BlogActions({ postId }: { postId: number }) {
        {/* Facebook */}
        <button 
           onClick={shareFacebook}
+          aria-label="Chia sẻ lên Facebook"
           className="group p-3 rounded-full bg-white border border-gray-200 shadow-sm hover:bg-[#1877F2] hover:border-[#1877F2] hover:shadow-md transition"
           title="Chia sẻ lên Facebook"
        >
@@ -150,6 +153,7 @@ export default function BlogActions({ postId }: { postId: number }) {
        {/* Twitter */}
        <button 
           onClick={shareTwitter}
+          aria-label="Chia sẻ lên Twitter"
           className="group p-3 rounded-full bg-white border border-gray-200 shadow-sm hover:bg-[#1DA1F2] hover:border-[#1DA1F2] hover:shadow-md transition"
           title="Chia sẻ lên Twitter"
        >
@@ -159,6 +163,7 @@ export default function BlogActions({ postId }: { postId: number }) {
        {/* Copy Link */}
        <button 
           onClick={copyLink}
+          aria-label="Sao chép liên kết bài viết"
           className="group p-3 rounded-full bg-white border border-gray-200 shadow-sm hover:bg-gray-800 hover:border-gray-800 hover:shadow-md transition"
           title="Sao chép liên kết"
        >
