@@ -40,11 +40,11 @@ export default function Home() {
           {/* Cột phải: Hình ảnh Banner */}
           <div className="relative h-[400px] w-full bg-white rounded-3xl shadow-xl overflow-hidden flex items-center justify-center p-4">
              <Image 
-                src="/hero-image1.png" 
+                src="/hero-image3.png" 
                 alt="Students" 
                 fill 
                 className="object-cover" 
-                priority // Thêm cái này để tăng điểm SEO/Tốc độ (LCP)
+                priority
               />
           </div>
         </div>

@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { ClerkProvider } from "@clerk/nextjs"; // <--- Import cái này
+import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from 'sonner';
-import Footer from "@/components/Footer";
-
+import FooterWrapper from "@/components/FooterWrapper"; // ✅ Import Wrapper
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,15 +22,19 @@ export default function RootLayout({
       <html lang="vi">
         <body className={inter.className}>
           
-          {/* Nội dung chính của web */}
+          {/* Cấu trúc Flexbox để Footer luôn dính đáy màn hình */}
           <div className="flex flex-col min-h-screen">
-             {children}
+             
+             {/* flex-grow: 1 giúp phần nội dung này "nở" ra, đẩy Footer xuống dưới cùng */}
+             <main className="flex-grow">
+                {children}
+             </main>
+
+             {/* ✅ Sửa Footer thành FooterWrapper để nó tự ẩn khi vào trang Admin */}
+             <FooterWrapper />
           </div>
 
           <Toaster position="bottom-right" richColors />
-          
-          {/* 2. Đặt Footer ở cuối cùng */}
-          <Footer />
           
         </body>
       </html>

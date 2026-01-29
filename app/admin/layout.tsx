@@ -1,4 +1,4 @@
-import AdminSidebar from "@/components/AdminSidebar"; // <--- Import component mới
+import AdminSidebar from "@/components/AdminSidebar"; 
 import { redirect } from "next/navigation";
 import { currentUser } from "@clerk/nextjs/server";
 

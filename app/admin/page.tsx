@@ -209,21 +209,24 @@ export default async function AdminDashboard() {
             </div>
 
             {/* Box 2: Quick Actions */}
-            <div className="bg-gradient-to-br from-gray-900 to-black text-white rounded-2xl shadow-lg p-6">
-                <h3 className="font-bold mb-4 text-lg">Phím tắt Admin</h3>
-                <div className="flex flex-col gap-3">
-                    <Link href="/" className="flex items-center justify-between p-3 rounded-lg bg-white/10 hover:bg-white/20 transition backdrop-blur-sm group">
-                        <span className="text-sm font-medium">→ Về trang chủ</span>
-                        <ArrowUpRight size={16} className="opacity-50 group-hover:opacity-100 transition"/>
-                    </Link>
-                    <Link href="/admin/events" className="flex items-center justify-between p-3 rounded-lg bg-white/10 hover:bg-white/20 transition backdrop-blur-sm group">
-                        <span className="text-sm font-medium">→ Quản lý Sự kiện</span>
-                        <Calendar size={16} className="opacity-50 group-hover:opacity-100 transition"/>
-                    </Link>
+            <div className="bg-white border border-gray-100 shadow-sm rounded-2xl p-6">
+            <h3 className="font-bold text-lg text-gray-800 mb-4">Phím tắt Admin</h3>
+            <div className="space-y-3">
+              <Link href="/" className="flex items-center justify-between p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition duration-200 group">
+                <div className="flex items-center gap-3">
+                  <span className="font-medium text-gray-700 group-hover:text-gray-900">→ Về trang chủ</span>
                 </div>
+                <span className="text-gray-400 group-hover:text-gray-600 transition">↗</span>
+              </Link>
+              <Link href="/admin/events" className="flex items-center justify-between p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition duration-200 group">
+                <div className="flex items-center gap-3">
+                  <span className="font-medium text-gray-700 group-hover:text-gray-900">→ Quản lý Sự kiện</span>
+                </div>
+                <span className="text-gray-400 group-hover:text-gray-600 transition">📅</span>
+              </Link>
             </div>
+          </div>
         </div>
-
       </div>
     </div>
   );

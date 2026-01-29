@@ -77,12 +77,7 @@ export default function AdminSidebar() {
 
       {/* 3. FOOTER (Cài đặt & Đăng xuất) */}
       <div className="p-4 border-t border-gray-100 bg-gray-50/50 space-y-1">
-        <Link 
-            href="/admin/settings" 
-            className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-200 transition font-medium"
-        >
-            <Settings size={20} /> Cài đặt
-        </Link>
+        
         
         {/* Nút đăng xuất của Clerk */}
         <SignOutButton redirectUrl="/">
