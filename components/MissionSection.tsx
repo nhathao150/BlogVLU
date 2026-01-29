@@ -111,7 +111,7 @@ export default function MissionSection() {
           </div>
         ) : (
           // Trạng thái chờ: Khi chưa bấm gì cả
-          <div className="flex flex-col items-center justify-center h-full text-gray-400 py-8 border-2 border-dashed border-gray-200 rounded-2xl bg-gray-50/50">
+          <div className="flex flex-col items-center justify-center h-full text-gray-800 py-8 border-2 border-dashed border-gray-200 rounded-2xl bg-gray-50/50">
              <p>✨ Hãy chọn một mục ở trên để khám phá ✨</p>
           </div>
         )}
