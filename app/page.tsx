@@ -43,7 +43,7 @@ export default function Home() {
                 src="/hero-image1.png" 
                 alt="Students" 
                 fill 
-                className="object-contain" 
+                className="object-cover" 
                 priority // Thêm cái này để tăng điểm SEO/Tốc độ (LCP)
               />
           </div>
