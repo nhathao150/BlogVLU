@@ -6,12 +6,13 @@ import { useUser } from '@clerk/nextjs'
 import Image from 'next/image'
 import { Send, Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
+import { Comment } from '@/types'
 
 export default function CommentSection({ postId }: { postId: number }) {
   const { user } = useUser()
   const supabase = createClient()
-  
-  const [comments, setComments] = useState<any[]>([])
+
+  const [comments, setComments] = useState<Comment[]>([])
   const [content, setContent] = useState("")
   const [loading, setLoading] = useState(false)
 
@@ -20,11 +21,11 @@ export default function CommentSection({ postId }: { postId: number }) {
     const fetchComments = async () => {
       const { data } = await supabase
         .from('post_comments')
-        .select('*')
+        .select('id, post_id, user_id, user_name, user_avatar, content, created_at')
         .eq('post_id', postId)
         .order('created_at', { ascending: false }) // Mới nhất lên đầu
-      
-      if (data) setComments(data)
+
+      if (data) setComments(data as Comment[])
     }
     fetchComments()
   }, [postId])
@@ -36,7 +37,7 @@ export default function CommentSection({ postId }: { postId: number }) {
     if (!content.trim()) return
 
     setLoading(true)
-    const newComment = {
+    const newComment: Comment = {
       post_id: postId,
       user_id: user.id,
       user_name: user.fullName || user.firstName || "Người dùng",
@@ -45,7 +46,7 @@ export default function CommentSection({ postId }: { postId: number }) {
     }
 
     const { error } = await supabase.from('post_comments').insert(newComment)
-    
+
     if (!error) {
       setComments([newComment, ...comments]) // Hiện ngay lập tức (Optimistic update)
       setContent("")
@@ -69,21 +70,21 @@ export default function CommentSection({ postId }: { postId: number }) {
         ) : (
           <div className="w-10 h-10 bg-gray-200 rounded-full flex-shrink-0" />
         )}
-        
+
         <form onSubmit={handleSubmit} className="flex-1 relative">
-          <textarea 
+          <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder={user ? "Chia sẻ suy nghĩ của bạn..." : "Đăng nhập để tham gia thảo luận..."}
             className="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 pr-12 focus:ring-2 focus:ring-black focus:border-transparent outline-none transition resize-none h-24"
             disabled={!user || loading}
           />
-          <button 
+          <button
             type="submit"
             disabled={!content.trim() || loading}
             className="absolute right-3 bottom-3 p-2 bg-black text-white rounded-lg hover:bg-gray-800 disabled:opacity-50 disabled:bg-gray-300 transition"
           >
-            {loading ? <Loader2 size={16} className="animate-spin"/> : <Send size={16} />}
+            {loading ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
           </button>
         </form>
       </div>
@@ -95,10 +96,10 @@ export default function CommentSection({ postId }: { postId: number }) {
         ) : (
           comments.map((cmt, idx) => (
             <div key={idx} className="flex gap-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
-              <Image 
-                src={cmt.user_avatar || "/default-avatar.png"} 
-                alt="Avatar" 
-                width={40} height={40} 
+              <Image
+                src={cmt.user_avatar || "/default-avatar.png"}
+                alt="Avatar"
+                width={40} height={40}
                 className="rounded-full w-10 h-10 border object-cover flex-shrink-0"
               />
               <div>

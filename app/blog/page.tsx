@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Calendar, User, ArrowLeft, ArrowRight } from "lucide-react";
 
-export const revalidate = 0; // Luôn lấy dữ liệu mới nhất
+export const revalidate = 60; // Cache trong 60s
 
 // CẤU HÌNH SỐ LƯỢNG BÀI VIẾT
 const ITEMS_PER_PAGE = 9; // 3 cột x 3 hàng = 9 bài
@@ -17,7 +17,7 @@ export default async function BlogPage({
   // 1. Xử lý trang hiện tại (Next.js 15 bắt buộc await searchParams)
   const params = await searchParams;
   const currentPage = Number(params.page) || 1;
-  
+
   // Tính toán vị trí cắt dữ liệu
   // Trang 1: from 0 to 8
   // Trang 2: from 9 to 17
@@ -124,11 +124,10 @@ export default async function BlogPage({
               {/* Nút Quay lại (Previous) */}
               <Link
                 href={`/blog?page=${currentPage - 1}`}
-                className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition ${
-                  !hasPrevPage
-                    ? "bg-gray-100 text-gray-400 pointer-events-none cursor-not-allowed"
-                    : "bg-white border border-gray-300 text-gray-700 hover:bg-black hover:text-white hover:border-black"
-                }`}
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition ${!hasPrevPage
+                  ? "bg-gray-100 text-gray-400 pointer-events-none cursor-not-allowed"
+                  : "bg-white border border-gray-300 text-gray-700 hover:bg-black hover:text-white hover:border-black"
+                  }`}
                 aria-disabled={!hasPrevPage}
               >
                 <ArrowLeft size={18} /> Trang trước
@@ -141,11 +140,10 @@ export default async function BlogPage({
               {/* Nút Tiếp theo (Next) */}
               <Link
                 href={`/blog?page=${currentPage + 1}`}
-                className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition ${
-                  !hasNextPage
-                    ? "bg-gray-100 text-gray-400 pointer-events-none cursor-not-allowed"
-                    : "bg-black text-white hover:bg-gray-800"
-                }`}
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition ${!hasNextPage
+                  ? "bg-gray-100 text-gray-400 pointer-events-none cursor-not-allowed"
+                  : "bg-black text-white hover:bg-gray-800"
+                  }`}
                 aria-disabled={!hasNextPage}
               >
                 Trang sau <ArrowRight size={18} />

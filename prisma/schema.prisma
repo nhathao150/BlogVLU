@@ -34,4 +34,24 @@ model Post {
   
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  
+  comments  PostComment[]
+}
+
+model PostComment {
+  id          String   @id @default(cuid())
+  content     String
+  
+  postId      String   @map("post_id")
+  post        Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  
+  userId      String   @map("user_id")
+  // Note: User relation might be loose if using Clerk ID vs internal DB ID, but let's assume loose or manual handling for now
+  
+  userName    String   @map("user_name")
+  userAvatar  String?  @map("user_avatar")
+  
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@map("post_comments")
 }
