@@ -121,9 +121,9 @@ Truy cập `http://localhost:3000` để trải nghiệm.
 
 ## 📬 Liên hệ
 
-Được phát triển bởi **[Tên Của Bạn]**.
-- **Email:** email-cua-ban@gmail.com
-- **GitHub:** [Link Github của bạn]
+Được phát triển bởi **[ Hào ]**.
+- **Email:**   [ thanhkiem123498@gmail.com ]
+- **GitHub:**  [ https://github.com/nhathao150 ]
 
 ---
 © 2026 BlogVLU. All rights reserved.
