@@ -3,36 +3,76 @@
 ![Banner Dự Án](/public/logo.png) 
 *(Bạn có thể thay bằng ảnh chụp màn hình trang chủ ở đây)*
 
-**BlogVLU** là một nền tảng Full-stack hiện đại dành cho cộng đồng sinh viên, cho phép chia sẻ tin tức, quản lý sự kiện và tương tác thời gian thực. Dự án được xây dựng với **Next.js 14 (App Router)** và tối ưu hóa hiệu năng, SEO.
+**BlogVLU** là một nền tảng Full-stack hiện đại dành cho cộng đồng sinh viên, cho phép chia sẻ tin tức, quản lý sự kiện và tương tác thời gian thực. Dự án được xây dựng với **Next.js 16 (App Router)** và tối ưu hóa hiệu năng, SEO.
 
 🔗 **Live Demo:** [Điền Link Vercel của bạn vào đây]
 
 ---
 
-## 🚀 Tính năng nổi bật (Key Features)
+## �️ Công nghệ sử dụng (Tech Stack)
 
-### 1. Phân hệ Người dùng (User)
-- **Authentication:** Đăng nhập/Đăng ký bảo mật với Clerk.
-- **Real-time Interaction:** Thả tim (Like) và Bình luận (Comment) bài viết ngay lập tức mà không cần load lại trang (Optimistic UI).
-- **Events Gallery:** Xem sự kiện, album ảnh dạng lưới, zoom ảnh chi tiết (Lightbox).
-- **Smart Search:** Tìm kiếm bài viết và sự kiện theo từ khóa.
-- **Responsive:** Giao diện tối ưu hoàn hảo cho cả Mobile và Desktop.
+Dự án sử dụng bộ công nghệ "Modern Stack" mới nhất (2025-2026):
 
-### 2. Phân hệ Quản trị (Admin Dashboard)
-- **Tổng quan:** Xem thống kê số lượng bài viết, lượt xem, tương tác qua Biểu đồ trực quan.
-- **Quản lý nội dung:** Soạn thảo bài viết với Rich Text Editor, upload ảnh bìa.
-- **Quản lý sự kiện:** Tạo sự kiện mới, upload nhiều ảnh cùng lúc.
-- **Bảo mật:** Phân quyền chặt chẽ, chỉ Admin mới truy cập được trang quản trị.
+### Frontend (Giao diện)
+- **Next.js 16 (App Router)**: Framework React mới nhất, hỗ trợ Server Components (RSC).
+- **React 19**: Phiên bản React mới với các cải tiến về compiler.
+- **TypeScript**: Ngôn ngữ chính, đảm bảo an toàn kiểu dữ liệu (Type Safety).
+- **Tailwind CSS v4**: Framework CSS utility-first mới nhất.
+- **Lucide React**: Bộ icon nhẹ và đẹp.
+- **Sonner**: Thư viện hiển thị thông báo (Toast notifications) mượt mà.
+- **Recharts**: Thư viện vẽ biểu đồ cho trang Admin.
+- **Tiptap**: Bộ soạn thảo văn bản phong phú (Rich Text Editor).
+
+### Backend & Database (Dữ liệu)
+- **Supabase**: Nền tảng "Firebase alternative" chạy trên PostgreSQL.
+- **Prisma ORM**: Định nghĩa Schema và truy vấn dữ liệu.
+
+### Authentication (Bảo mật)
+- **Clerk**: Quản lý người dùng, đăng nhập, bảo mật route.
 
 ---
 
-## 🛠️ Công nghệ sử dụng (Tech Stack)
+## 🚀 Tính năng nổi bật (Key Features)
 
-- **Frontend:** Next.js 14, React, TypeScript, Tailwind CSS.
-- **Backend & Database:** Supabase (PostgreSQL), Supabase Storage (Lưu trữ ảnh).
-- **Auth:** Clerk (Authentication & User Management).
-- **UI/UX Libraries:** Lucide React (Icons), Sonner (Toast Notifications), Recharts (Biểu đồ).
-- **Deployment:** Vercel.
+### 🏠 Phân hệ Người dùng (User Web)
+1.  **Trang chủ (Home)**: Banner giới thiệu, Sứ mệnh (`MissionSection`) và điều hướng.
+2.  **Blog (Tin tức)**:
+    -   Xem bài viết với hiệu suất cao (Caching/ISR).
+    -   Tương tác: Bình luận (`CommentSection`) thời gian thực.
+3.  **Sự kiện (Events)**: Danh sách sự kiện, đăng ký tham gia.
+4.  **Tìm kiếm (Search)**: Tìm kiếm bài viết/sự kiện toàn trang.
+
+### 🛡️ Phân hệ Quản trị (Admin Dashboard)
+-   **Dashboard Overview**: Biểu đồ thống kê lượt truy cập/bài viết.
+-   **Quản lý nội dung**:
+    -   Soạn thảo bài viết với Tiptap Editor (`PostForm`).
+    -   Upload hình ảnh với Supabase Storage.
+-   **Bảo mật**: Phân quyền chặt chẽ, bảo vệ route admin.
+
+---
+
+## � Cấu Trúc Dự Án (File Structure)
+
+```bash
+/app          # App Router (Chứa các trang & API routes)
+  /blog       # Trang danh sách & chi tiết bài viết
+  /admin      # Trang quản trị viên (Protected)
+  /events     # Trang sự kiện
+  page.tsx    # Trang chủ
+  layout.tsx  # Layout chung (Navbar, Footer, Auth Provider)
+
+/components   # Các UI Component tái sử dụng
+  Navbar.tsx        # Thanh điều hướng
+  CommentSection.tsx# Khu vực bình luận (Logic phức tạp)
+  PostForm.tsx      # Form tạo bài viết (Admin)
+  AdminChart.tsx    # Biểu đồ thống kê
+
+/prisma       # Cấu hình Database
+  schema.prisma     # Định nghĩa cấu trúc bảng
+
+/utils        # Các hàm tiện ích
+/types        # Định nghĩa kiểu dữ liệu (TypeScript Interfaces)
+```
 
 ---
 
