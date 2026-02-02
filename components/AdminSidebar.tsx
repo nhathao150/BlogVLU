@@ -75,7 +75,7 @@ export default function AdminSidebar() {
         })}
       </nav>
 
-      {/* 3. FOOTER (Cài đặt & Đăng xuất) */}
+      {/* 3. FOOTER ( Đăng xuất) */}
       <div className="p-4 border-t border-gray-100 bg-gray-50/50 space-y-1">
         
         

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Rocket, CheckCircle2, Handshake, BookOpen, ChevronDown } from "lucide-react";
 
-// Dữ liệu giữ nguyên
+
 const missions = [
   {
     id: 1,
@@ -40,13 +40,13 @@ const missions = [
 ];
 
 export default function MissionSection() {
-  // Sửa 1: Mặc định là null (không chọn gì cả)
+  // Mặc định là null (không chọn gì cả)
   const [selectedId, setSelectedId] = useState<number | null>(null);
 
-  // Hàm xử lý khi bấm vào thẻ
+  // Hàm xử lý khi click vào thẻ
   const handleCardClick = (id: number) => {
     if (selectedId === id) {
-      // Nếu đang chọn cái đó mà bấm lại -> Tắt đi (đóng lại)
+      // Nếu đang chọn cái đó mà bấm lại -> đóng lại
       setSelectedId(null);
     } else {
       // Nếu chưa chọn -> Mở ra
@@ -63,7 +63,7 @@ export default function MissionSection() {
         Sứ mệnh – Mục tiêu của nhóm
       </h2>
 
-      {/* Phần lưới 4 thẻ */}
+      {/* lưới thẻ */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {missions.map((item) => (
           <div
