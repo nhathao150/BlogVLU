@@ -30,7 +30,7 @@ export default function RootLayout({
                 {children}
              </main>
 
-             {/* ✅ Sửa Footer thành FooterWrapper để nó tự ẩn khi vào trang Admin */}
+             {/* ✅ FooterWrapper để nó tự ẩn khi vào trang Admin */}
              <FooterWrapper />
           </div>
 
