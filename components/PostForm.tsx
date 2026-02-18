@@ -219,24 +219,7 @@ export default function PostForm({ initialData }: { initialData?: PostData }) {
                 </div>
             </div>
 
-            {/* 2. Card Cài đặt Slug */}
-            <div className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 sticky top-28">
-                <h3 className="font-semibold text-gray-700 mb-4 flex items-center gap-2">
-                    Link bài viết
-                </h3>
-                <div className="bg-gray-50 p-3 rounded-lg border border-gray-200 flex flex-col gap-1">
-                    <span className="text-xs text-gray-400 font-medium">URL Slug</span>
-                    <input 
-                        type="text" 
-                        value={slug}
-                        onChange={(e) => setSlug(e.target.value)}
-                        className="bg-transparent text-sm font-medium text-gray-800 outline-none w-full"
-                    />
-                </div>
-                <p className="text-xs text-gray-400 mt-2">
-                    Đường dẫn sẽ là: domain.com/blog/<span className="text-black">{slug}</span>
-                </p>
-            </div>
+
         </div>
 
       </div>

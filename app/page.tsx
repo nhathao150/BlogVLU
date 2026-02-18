@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
 import Link from "next/link";
-import MissionSection from "@/components/MissionSection"; // Import component mới
+import MissionSection from "@/components/MissionSection"; 
 
 export default function Home() {
   return (

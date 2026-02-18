@@ -86,7 +86,7 @@ export default async function AdminDashboard() {
         {/* Nút hành động nhanh */}
         <div className="flex gap-3">
           <Link 
-            href="/admin/posts/new" // Sửa lại đường dẫn đúng với cấu trúc app của bạn (thường là /new hoặc /create)
+            href="/admin/posts/create"
             className="flex items-center gap-2 bg-black text-white px-5 py-2.5 rounded-full text-sm font-bold hover:bg-gray-800 transition shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
           >
             <PlusCircle size={18} />
