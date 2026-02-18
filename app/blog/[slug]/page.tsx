@@ -1,5 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { notFound } from "next/navigation";
+import { clerkClient } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar, Clock } from "lucide-react";
@@ -58,6 +59,20 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     .limit(5)
     .order('created_at', { ascending: false });
 
+  // C. Lấy thông tin tác giả từ Clerk
+  let author = null;
+  // Kiểm tra các trường có thể chứa ID tác giả (do Supabase/Prisma có thể trả về các key khác nhau)
+  const authorId = post.author_id || post.authorId || post.user_id; 
+  
+  if (authorId) {
+    try {
+      const client = await clerkClient();
+      author = await client.users.getUser(authorId);
+    } catch (error) {
+      console.warn("Không tìm thấy thông tin tác giả trên Clerk:", authorId, error);
+    }
+  }
+
   return (
     <div className="min-h-screen bg-white pb-20">
       <Navbar />
@@ -99,11 +114,24 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     {/* Info tác giả */}
                     <div className="flex flex-wrap items-center gap-6 mt-6 text-gray-500 text-sm border-b border-gray-100 pb-6">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-gradient-to-tr from-blue-500 to-purple-600 rounded-full flex items-center justify-center font-bold text-white shadow-sm">
-                                A
+                            <div className="relative w-10 h-10 rounded-full overflow-hidden shadow-sm border border-gray-200">
+                                {author ? (
+                                    <Image 
+                                        src={author.imageUrl} 
+                                        alt={author.firstName || "Author"} 
+                                        fill 
+                                        className="object-cover"
+                                    />
+                                ) : (
+                                    <div className="w-full h-full bg-linear-to-tr from-blue-500 to-purple-600 flex items-center justify-center font-bold text-white">
+                                        A
+                                    </div>
+                                )}
                             </div>
                             <div>
-                                <p className="font-bold text-gray-900">Admin Team</p>
+                                <p className="font-bold text-gray-900">
+                                    {author ? `${author.firstName} ${author.lastName || ''}` : 'Admin Team'}
+                                </p>
                                 <p className="text-xs">Tác giả</p>
                             </div>
                         </div>
@@ -166,7 +194,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         {relatedPosts?.map((item) => (
                             <Link key={item.id} href={`/blog/${item.slug}`} className="group flex gap-3 items-start">
                                 {/* Ảnh thumb nhỏ */}
-                                <div className="relative w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden bg-gray-200">
+                                <div className="relative w-16 h-16 shrink-0 rounded-lg overflow-hidden bg-gray-200">
                                     {item.image_url ? (
                                         <Image src={item.image_url} alt={item.title} fill className="object-cover group-hover:scale-110 transition duration-300"/>
                                     ) : (

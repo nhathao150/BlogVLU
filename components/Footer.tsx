@@ -60,22 +60,22 @@ export default function Footer() {
         {/* Dòng kẻ ngang */}
         <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs text-gray-500">
-            © 2026 BlogVLU. Được thiết kế và vận hành bởi <span className="text-white font-medium">Nhóm Admin</span>.
+            © 2026 BlogVLU. Được thiết kế và vận hành bởi <span className="text-white font-medium">Nhóm 4</span>.
           </p>
           
           {/* Social Icons */}
           <div className="flex gap-4">
-            <a href="#" 
+            <a href="https://www.facebook.com/hao.bek.2024/" 
             aria-label="Facebook"
             className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition">
                 <Facebook size={16}/>
             </a>
-            <a href="#" 
+            <a href="https://www.instagram.com/gumayubekk/" 
             aria-label="Instagram"
             className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center hover:bg-pink-600 hover:text-white transition">
                 <Instagram size={16}/>
             </a>
-            <a href="#" 
+            <a href="https://x.com/Nhathao159" 
             aria-label="Twitter"
             className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-400 hover:text-white transition">
                 <Twitter size={16}/>
