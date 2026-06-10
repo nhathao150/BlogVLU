@@ -19,11 +19,10 @@ export default function Footer() {
                     height={32}
                     className="rounded-lg shadow-sm object-cover"
                   />
-                <span className="text-xl font-bold text-white tracking-tight">BlogVLU</span>
+                <span className="text-xl font-bold text-white tracking-tight">Nhật ký của Hào</span>
             </Link>
             <p className="text-sm leading-relaxed text-gray-400 max-w-sm">
-              Nơi chia sẻ kiến thức, sự kiện và những câu chuyện thú vị từ cộng đồng sinh viên Văn Lang. 
-              Kết nối, sẻ chia và cùng nhau phát triển.
+              Nơi ghi lại những mảnh ghép cuộc sống, những câu chuyện thường nhật, trải nghiệm và những kỷ niệm đẹp của Nhật Hào.
             </p>
           </div>
 
@@ -31,9 +30,9 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-bold mb-4 uppercase text-sm tracking-wider">Khám phá</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/blog" className="hover:text-white transition">Bài viết mới</Link></li>
-              <li><Link href="/events" className="hover:text-white transition">Sự kiện sắp tới</Link></li>
-              <li><Link href="/contact" className="hover:text-white transition">Liên hệ & Góp ý</Link></li>
+              <li><Link href="/blog" className="hover:text-white transition">Nhật ký đời thường</Link></li>
+              <li><Link href="/events" className="hover:text-white transition">Khoảnh khắc & Kỷ niệm</Link></li>
+              <li><Link href="/contact" className="hover:text-white transition">Liên hệ & Gửi thư</Link></li>
             </ul>
           </div>
 
@@ -43,15 +42,11 @@ export default function Footer() {
             <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-3">
                 <MapPin size={18} className="text-blue-500 shrink-0 mt-0.5"/>
-                <span>69/68 Đặng Thùy Trâm, P.13, Q. Bình Thạnh, TP.HCM</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Phone size={18} className="text-green-500 shrink-0"/>
-                <span>028.710.99221</span>
+                <span>TP. Hồ Chí Minh, Việt Nam</span>
               </li>
               <li className="flex items-center gap-3">
                 <Mail size={18} className="text-red-500 shrink-0"/>
-                <span>contact@vlu.edu.vn</span>
+                <span>thanhkiem123498@gmail.com</span>
               </li>
             </ul>
           </div>
@@ -60,7 +55,7 @@ export default function Footer() {
         {/* Dòng kẻ ngang */}
         <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs text-gray-500">
-            © 2026 BlogVLU. Được thiết kế và vận hành bởi <span className="text-white font-medium">Nhóm 4</span>.
+            © 2026 Nhật ký của Hào. Lưu giữ những kỷ niệm đẹp nhất.
           </p>
           
           {/* Social Icons */}

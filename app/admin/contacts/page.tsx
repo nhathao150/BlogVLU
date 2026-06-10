@@ -1,6 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { Mail, Clock, Trash2 } from "lucide-react";
-import DeleteContactButton from "@/components/DeleteContactButton"; // Bạn tự tạo nút xóa tương tự bài post nhé
+import DeleteContactButton from "@/components/admin/DeleteContactButton";
 
 export default async function AdminContactsPage() {
   const supabase = await createClient();

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Plus, Edit, Trash2 } from "lucide-react";
 import { createClient } from "@/utils/supabase/server"; // Kết nối Database thật
-import DeletePostButton from "@/components/DeletePostButton";
+import DeletePostButton from "@/components/admin/DeletePostButton";
 export default async function PostsManager() {
   // 1. Kết nối và lấy dữ liệu thật từ Supabase
   const supabase = await createClient();

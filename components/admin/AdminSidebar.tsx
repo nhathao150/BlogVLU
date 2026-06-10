@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, FileText, Calendar, Users, Settings, LogOut, Mail } from "lucide-react";
+import { LayoutDashboard, FileText, Camera, Users, Settings, LogOut, Mail } from "lucide-react";
 import { SignOutButton } from "@clerk/nextjs";
 
 const menuItems = [
@@ -13,7 +13,7 @@ const menuItems = [
     exact: true // Chỉ active khi đúng chính xác đường dẫn này
   },
   { 
-    name: "Bài viết (Blog)", 
+    name: "Nhật ký", 
     href: "/admin/posts", 
     icon: FileText 
   },
@@ -22,17 +22,16 @@ const menuItems = [
     href: "/admin/users", 
     icon: Users 
   },
-  // Bạn có thể thêm mục Sự kiện nếu muốn
   { 
-    name: "Sự kiện", 
+    name: "Khoảnh khắc", 
     href: "/admin/events", 
-    icon: Calendar 
+    icon: Camera 
   },
   { 
-  name: "Hộp thư", 
-  href: "/admin/contacts", 
-  icon: Mail // Import icon Mail từ lucide-react
-},
+    name: "Hộp thư", 
+    href: "/admin/contacts", 
+    icon: Mail // Import icon Mail từ lucide-react
+  },
 ];
 
 export default function AdminSidebar() {

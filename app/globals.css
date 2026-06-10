@@ -1,9 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Caveat:wght@400;700&family=Fira+Code:wght@400;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --font-orbitron: 'Orbitron', sans-serif;
+  --font-caveat: 'Caveat', cursive;
+  --font-fira: 'Fira Code', monospace;
+  --font-playfair: 'Playfair Display', serif;
+  --font-garamond: 'EB Garamond', serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -122,4 +128,96 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* --- CUSTOM IMMERSIVE STYLES --- */
+
+/* Lưới giấy tập sổ tay cũ */
+.paper-lines {
+  background-color: #fdfbf7;
+  background-image: 
+    linear-gradient(90deg, rgba(239, 68, 68, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(59, 130, 246, 0.06) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 28px;
+  background-position: 40px 0, 0 0;
+  line-height: 28px;
+}
+
+/* Lưới radar Hacker */
+.grid-bg {
+  background-image: 
+    linear-gradient(rgba(16, 185, 129, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 185, 129, 0.025) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Vũ trụ đầy sao */
+.space-stars {
+  background-color: #03030d;
+  background-image: 
+    radial-gradient(white, rgba(255,255,255,.2) 1.5px, transparent 40px),
+    radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+    radial-gradient(white, rgba(255,255,255,.1) 1.5px, transparent 40px);
+  background-size: 550px 550px, 350px 350px, 250px 250px;
+  background-position: 0 0, 40px 60px, 130px 270px;
+}
+
+/* Hiệu ứng hạt mưa rơi lách tách trên kính */
+.rain-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 6px);
+  animation: rain-fall 0.4s linear infinite;
+  pointer-events: none;
+}
+@keyframes rain-fall {
+  0% { background-position: 0 0; }
+  100% { background-position: 30px 120px; }
+}
+
+/* Hiệu ứng đĩa than quay chậm */
+.spin-slow {
+  animation: spin-vinyl 15s linear infinite;
+}
+@keyframes spin-vinyl {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Đốm nhiễu hạt phim cũ */
+.film-grain {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.035) 1px, transparent 0);
+  background-size: 10px 10px;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Hiệu ứng Typewriter hiệu năng cao cho hacker terminal */
+.typewriter {
+  overflow: hidden;
+  border-right: .15em solid #10b981;
+  white-space: nowrap;
+  animation: 
+    typing 1.5s steps(40, end),
+    blink-caret .75s step-end infinite;
+}
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #10b981; }
+}
+
+/* Hiệu ứng trôi chậm ngân hà (Galaxy slow drift) */
+.drift-bg {
+  animation: drift 60s linear infinite alternate;
+}
+@keyframes drift {
+  from { background-position: 0% 50% }
+  to { background-position: 100% 50% }
 }

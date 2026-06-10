@@ -1,4 +1,4 @@
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/layout/Navbar";
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { FileText, Calendar, ArrowRight, SearchX } from "lucide-react";

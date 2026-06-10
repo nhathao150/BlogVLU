@@ -7,9 +7,9 @@ import { Calendar, Clock } from "lucide-react";
 import type { Metadata } from "next";
 
 // Import các Components
-import Navbar from "@/components/Navbar";
-import CommentSection from "@/components/CommentSection"; 
-import BlogActions from "@/components/BlogActions"; 
+import Navbar from "@/components/layout/Navbar";
+import CommentSection from "@/components/blog/CommentSection"; 
+import BlogActions from "@/components/blog/BlogActions"; 
 
 // 1. Cấu hình SEO Metadata
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {

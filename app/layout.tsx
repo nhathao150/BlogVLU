@@ -3,13 +3,13 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from 'sonner';
-import FooterWrapper from "@/components/FooterWrapper"; // ✅ Import Wrapper
+import FooterWrapper from "@/components/layout/FooterWrapper"; // ✅ Import Wrapper
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Bloggy - My Tech Blog",
-  description: "Created by Next.js 15",
+  title: "Nhật ký của Hào | Lưu giữ kỷ niệm",
+  description: "Nơi ghi lại những câu chuyện thường nhật, trải nghiệm và khoảnh khắc đáng nhớ của Nhật Hào.",
 };
 
 export default function RootLayout({

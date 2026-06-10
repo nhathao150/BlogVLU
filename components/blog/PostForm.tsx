@@ -18,6 +18,7 @@ type PostData = {
   content: string
   image_url: string | null
   is_published: boolean
+  category?: string | null
 }
 
 export default function PostForm({ initialData }: { initialData?: PostData }) {
@@ -28,6 +29,7 @@ export default function PostForm({ initialData }: { initialData?: PostData }) {
   const [title, setTitle] = useState(initialData?.title || '')
   const [slug, setSlug] = useState(initialData?.slug || '')
   const [isPublished, setIsPublished] = useState(initialData?.is_published || false)
+  const [category, setCategory] = useState(initialData?.category || '')
   const [previewUrl, setPreviewUrl] = useState<string | null>(initialData?.image_url || null)
   const [imageFile, setImageFile] = useState<File | null>(null)
 
@@ -96,6 +98,7 @@ export default function PostForm({ initialData }: { initialData?: PostData }) {
       content: editor?.getHTML() || '',
       is_published: isPublished,
       image_url: finalImageUrl,
+      category: category || null,
     }
 
     let error
@@ -219,7 +222,24 @@ export default function PostForm({ initialData }: { initialData?: PostData }) {
                 </div>
             </div>
 
-
+            {/* 2. Card Chủ đề */}
+            <div className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                <h3 className="font-semibold text-gray-700 mb-4 flex items-center gap-2">
+                    <span className="text-lg">🧩</span> Chủ đề bài viết
+                </h3>
+                <select
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                    className="w-full bg-gray-50 border border-gray-200 text-gray-700 py-2.5 px-3 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-black cursor-pointer transition"
+                >
+                    <option value="">Chọn chủ đề...</option>
+                    <option value="nhat-ky">Nhật ký ngày thường ❤️</option>
+                    <option value="hoc-tap">Học tập & Công việc 📖</option>
+                    <option value="trai-nghiem">Đi & Trải nghiệm 🗺️</option>
+                    <option value="chill">Sở thích & Chill ☕</option>
+                </select>
+            </div>
+            
         </div>
 
       </div>

@@ -1,6 +1,6 @@
 import { clerkClient } from "@clerk/nextjs/server";
 import Image from "next/image";
-import DeleteUserButton from "@/components/DeleteUserButton";
+import DeleteUserButton from "@/components/admin/DeleteUserButton";
 import { redirect } from "next/navigation";
 import { currentUser } from "@clerk/nextjs/server";
 

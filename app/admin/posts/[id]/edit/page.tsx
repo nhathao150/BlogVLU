@@ -1,4 +1,4 @@
-import PostForm from "@/components/PostForm";
+import PostForm from "@/components/blog/PostForm";
 import { createClient } from "@/utils/supabase/server";
 import { notFound } from "next/navigation";
 

@@ -66,7 +66,7 @@ export default function EventForm({ initialData }: { initialData?: EventData }) 
   }
 
   const handleSubmit = async () => {
-    if (!title || !eventDate) return alert("Vui lòng nhập tên và thời gian!")
+    if (!title || !eventDate) return alert("Vui lòng nhập tiêu đề và thời gian!")
     setLoading(true)
     const supabase = createClient()
     
@@ -120,7 +120,7 @@ export default function EventForm({ initialData }: { initialData?: EventData }) 
       <div className="flex items-center justify-between py-6 mb-6 border-b">
         <div className="flex items-center gap-4">
             <Link href="/admin/events" className="p-2 hover:bg-gray-100 rounded-full transition"><ArrowLeft size={20}/></Link>
-            <h1 className="text-xl font-bold">{initialData ? 'Sửa sự kiện' : 'Thêm sự kiện mới'}</h1>
+            <h1 className="text-xl font-bold">{initialData ? 'Sửa khoảnh khắc' : 'Thêm khoảnh khắc mới'}</h1>
         </div>
         <button onClick={handleSubmit} disabled={loading} className="bg-black text-white px-6 py-2 rounded-lg flex items-center gap-2 hover:bg-gray-800 disabled:opacity-50">
             {loading ? <Loader2 className="animate-spin" /> : <Save size={18} />} Lưu
@@ -161,10 +161,10 @@ export default function EventForm({ initialData }: { initialData?: EventData }) 
         {/* CỘT PHẢI: FORM NHẬP LIỆU */}
         <div className="md:col-span-2 space-y-6 bg-white p-6 rounded-xl border shadow-sm">
             <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Tên sự kiện</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Tiêu đề khoảnh khắc</label>
                 <div className="relative">
                     <Type className="absolute left-3 top-3 text-gray-400" size={18} />
-                    <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-black outline-none" placeholder="Tiêu đề..." />
+                    <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-black outline-none" placeholder="Tiêu đề khoảnh khắc..." />
                 </div>
             </div>
 
@@ -177,17 +177,17 @@ export default function EventForm({ initialData }: { initialData?: EventData }) 
                     </div>
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Địa điểm</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Địa điểm (Tùy chọn)</label>
                     <div className="relative">
                         <MapPin className="absolute left-3 top-3 text-gray-400" size={18} />
-                        <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} className="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-black outline-none" placeholder="Ở đâu..." />
+                        <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} className="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-black outline-none" placeholder="Ví dụ: Đà Lạt, Ở nhà, quán cà phê..." />
                     </div>
                 </div>
             </div>
 
             <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Mô tả</label>
-                <textarea rows={6} value={description} onChange={(e) => setDescription(e.target.value)} className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-black outline-none resize-none" placeholder="Nội dung..." />
+                <label className="block text-sm font-medium text-gray-700 mb-1">Câu chuyện / Cảm xúc</label>
+                <textarea rows={6} value={description} onChange={(e) => setDescription(e.target.value)} className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-black outline-none resize-none" placeholder="Hôm nay có gì vui? Viết câu chuyện của bạn ở đây..." />
             </div>
         </div>
       </div>

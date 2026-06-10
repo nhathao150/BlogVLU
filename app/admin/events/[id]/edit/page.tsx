@@ -1,4 +1,4 @@
-import EventForm from "@/components/EventForm";
+import EventForm from "@/components/moments/EventForm";
 import { createClient } from "@/utils/supabase/server";
 import { notFound } from "next/navigation";
 

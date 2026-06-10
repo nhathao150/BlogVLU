@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import Navbar from "@/components/Navbar"
+import Navbar from "@/components/layout/Navbar"
 import { createClient } from "@/utils/supabase/client"
 import { Mail, MapPin, Phone, Send, CheckCircle2, Loader2 } from "lucide-react"
 
@@ -54,10 +54,10 @@ export default function ContactPage() {
             <div className="absolute bottom-0 left-0 w-32 h-32 bg-blue-900 rounded-full blur-3xl -ml-16 -mb-16 opacity-50"></div>
 
             <div className="relative z-10">
-              <h2 className="text-3xl font-bold mb-6">Liên hệ với chúng tôi</h2>
+              <h2 className="text-3xl font-bold mb-6">Liên hệ với Hào</h2>
               <p className="text-gray-400 mb-10 leading-relaxed">
-                Bạn có ý tưởng bài viết mới? Hay phát hiện lỗi trên website? 
-                Đừng ngần ngại gửi tin nhắn cho đội ngũ Admin nhé!
+                Bạn có câu chuyện thú vị muốn chia sẻ? Hoặc đơn giản là muốn kết nối với mình? 
+                Hãy gửi tin nhắn trực tiếp qua form bên cạnh nhé!
               </p>
               
               <div className="space-y-6">
@@ -67,17 +67,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-xs text-gray-400 font-medium uppercase">Email</p>
-                    <p className="font-medium">contact@blogvlu.com</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-green-400">
-                    <Phone size={20}/>
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-400 font-medium uppercase">Điện thoại</p>
-                    <p className="font-medium">0909.888.xxx</p>
+                    <p className="font-medium">thanhkiem123498@gmail.com</p>
                   </div>
                 </div>
 
@@ -87,14 +77,14 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-xs text-gray-400 font-medium uppercase">Địa chỉ</p>
-                    <p className="font-medium">Van Lang University, HCMC</p>
+                    <p className="font-medium">TP. Hồ Chí Minh, Việt Nam</p>
                   </div>
                 </div>
               </div>
             </div>
 
             <div className="relative z-10 mt-10">
-               <p className="text-xs text-gray-500">© 2026 BlogVLU Inc.</p>
+               <p className="text-xs text-gray-500">© 2026 Nhật ký của Hào.</p>
             </div>
           </div>
 

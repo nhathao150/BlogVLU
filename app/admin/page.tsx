@@ -54,10 +54,10 @@ export default async function AdminDashboard() {
       color: "text-blue-600 bg-blue-50"
     },
     { 
-      label: "Sự kiện", 
+      label: "Khoảnh khắc", 
       value: eventsCount || 0, 
       icon: Calendar, 
-      desc: "Sự kiện đang hoạt động",
+      desc: "Khoảnh khắc đang hoạt động",
       color: "text-purple-600 bg-purple-50"
     },
     { 
@@ -220,9 +220,9 @@ export default async function AdminDashboard() {
               </Link>
               <Link href="/admin/events" className="flex items-center justify-between p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition duration-200 group">
                 <div className="flex items-center gap-3">
-                  <span className="font-medium text-gray-700 group-hover:text-gray-900">→ Quản lý Sự kiện</span>
+                  <span className="font-medium text-gray-700 group-hover:text-gray-900">→ Quản lý Khoảnh khắc</span>
                 </div>
-                <span className="text-gray-400 group-hover:text-gray-600 transition">📅</span>
+                <span className="text-gray-400 group-hover:text-gray-600 transition">📸</span>
               </Link>
             </div>
           </div>

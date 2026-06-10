@@ -1,7 +1,7 @@
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/layout/Navbar";
 import { createClient } from "@/utils/supabase/server";
 import { currentUser } from "@clerk/nextjs/server";
-import EventCard from "@/components/EventCard";
+import EventCard from "@/components/moments/EventCard";
 
 export const revalidate = 0;
 
@@ -53,12 +53,12 @@ export default async function EventsPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[#F0F2F5]">
-      <Navbar />
+    <div className="min-h-screen bg-[#080808] text-white">
+      <Navbar theme="dark" />
       <main className="container mx-auto px-0 md:px-4 py-6 max-w-2xl">
-        <div className="bg-white md:rounded-xl shadow-sm border border-gray-200 p-6 mb-6 text-center">
-            <h1 className="text-2xl font-bold text-gray-900">Bảng tin Sự kiện 📢</h1>
-            <p className="text-gray-500 text-sm mt-1">Cập nhật hoạt động mới nhất từ VLU</p>
+        <div className="bg-[#121212] md:rounded-xl shadow-[0_0_20px_rgba(0,0,0,0.6)] border border-zinc-800/80 p-6 mb-6 text-center">
+            <h1 className="text-2xl font-bold text-white drop-shadow-[0_0_6px_rgba(255,255,255,0.2)]">Bảng tin Khoảnh khắc 📸</h1>
+            <p className="text-zinc-400 text-sm mt-1">Lưu giữ những bức ảnh và câu chuyện đáng nhớ của Nhật Hào</p>
         </div>
 
         <div className="space-y-4">

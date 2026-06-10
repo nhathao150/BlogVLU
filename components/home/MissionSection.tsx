@@ -1,41 +1,41 @@
 "use client";
 
 import React, { useState } from "react";
-import { Rocket, CheckCircle2, Handshake, BookOpen, ChevronDown } from "lucide-react";
+import { Heart, BookOpen, Map, Coffee, ChevronDown } from "lucide-react";
 
 
 const missions = [
   {
     id: 1,
-    title: "Phát triển kỹ năng",
-    icon: <Rocket className="w-8 h-8 text-red-500 mb-3" />,
+    title: "Nhật ký ngày thường",
+    icon: <Heart className="w-8 h-8 text-red-500 mb-3" />,
     color: "border-red-200 bg-red-50",
     content:
-      "Rèn luyện các kỹ năng mềm thiết yếu (giao tiếp, làm việc nhóm) và kỹ năng chuyên môn (lập trình, thiết kế) thông qua các buổi workshop thực chiến hàng tháng.",
+      "Những suy ngẫm đời thường, cảm xúc vui buồn, hay các câu chuyện nhỏ bé diễn ra trong ngày. Nơi trút bầu tâm sự và lưu giữ cảm xúc chân thật nhất.",
   },
   {
     id: 2,
-    title: "Thực hiện dự án",
-    icon: <CheckCircle2 className="w-8 h-8 text-green-500 mb-3" />,
+    title: "Học tập & Công việc",
+    icon: <BookOpen className="w-8 h-8 text-green-500 mb-3" />,
     color: "border-green-200 bg-green-50",
     content:
-      "Cơ hội tham gia các dự án thực tế, xây dựng Portfolio ấn tượng ngay từ khi còn ngồi trên ghế nhà trường để ghi điểm tuyệt đối với nhà tuyển dụng sau này.",
+      "Ghi lại những kiến thức công nghệ mới học được, những cột mốc phát triển bản thân và tiến độ các dự án phần mềm mình đang thực hiện.",
   },
   {
     id: 3,
-    title: "Hợp tác - Kết nối",
-    icon: <Handshake className="w-8 h-8 text-orange-500 mb-3" />,
+    title: "Đi & Trải nghiệm",
+    icon: <Map className="w-8 h-8 text-orange-500 mb-3" />,
     color: "border-orange-200 bg-orange-50",
     content:
-      "Mở rộng mạng lưới quan hệ (Networking) với các sinh viên giỏi, cựu sinh viên thành đạt và các doanh nghiệp đối tác uy tín trong ngành.",
+      "Những chuyến đi phượt, hành trình khám phá các vùng đất mới, các buổi gặp gỡ bạn bè và những khoảnh khắc dịch chuyển đầy hào hứng.",
   },
   {
     id: 4,
-    title: "Tinh thần học thuật",
-    icon: <BookOpen className="w-8 h-8 text-blue-500 mb-3" />,
+    title: "Sở thích & Chill",
+    icon: <Coffee className="w-8 h-8 text-blue-500 mb-3" />,
     color: "border-blue-200 bg-blue-50",
     content:
-      "Nơi chia sẻ kiến thức, tài liệu học tập chất lượng cao và thúc đẩy tư duy nghiên cứu, sáng tạo không giới hạn trong cộng đồng sinh viên.",
+      "Nơi chia sẻ về những bộ phim hay, bản nhạc yêu thích, cuốn sách tâm đắc hoặc những quán cà phê chill mà mình vô tình ghé qua.",
   },
 ];
 
@@ -60,7 +60,7 @@ export default function MissionSection() {
   return (
     <div className="py-12">
       <h2 className="text-3xl font-bold text-center mb-4 text-gray-800">
-        Sứ mệnh – Mục tiêu của nhóm
+        Những mảnh ghép cuộc sống 🧩
       </h2>
 
       {/* lưới thẻ */}
